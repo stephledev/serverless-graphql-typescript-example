@@ -1,0 +1,12 @@
+type MountainPass {
+  name: String
+  elevation: Int
+  length: Int
+  maxGradient: Float
+  from: Municipality
+  to: Municipality
+}
+
+extend type Query {
+  mountainPasses: [MountainPass]
+}

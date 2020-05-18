@@ -1,0 +1,11 @@
+Table:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${self:service}-municipalities-${self:provider.stage}
+    AttributeDefinitions:
+      - AttributeName: name
+        AttributeType: S
+    KeySchema:
+      - AttributeName: name
+        KeyType: HASH
+    BillingMode: PAY_PER_REQUEST

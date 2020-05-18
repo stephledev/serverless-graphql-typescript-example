@@ -1,0 +1,52 @@
+service: serverless-graphql-typecript
+
+package:
+  exclude:
+    - data/**
+    - resources/**
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-deployment-bucket
+  - serverless-layers
+
+provider:
+  environment:
+    CRUD_CRUD_ENDPOINT_IDENTIFIER:
+    MUNCIPALITIES_TABLE: ${self:resources.Resources.MunicipalitiesTable.Properties.TableName}
+    MOUNTAIN_PASSES_RESOURCE: mountain-passes
+    STAGE: ${self:provider.stage}
+  name: aws
+  deploymentBucket:
+    name: ${self:service}-deployment-${self:provider.region}-${self:provider.stage}
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'local'}
+  region: ${opt:region, 'eu-west-1'}
+  profile: private
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:GetItem
+      - dynamodb:Scan
+    Resource:
+      Fn::GetAtt: [ MunicipalitiesTable, Arn ]
+
+functions:
+  graphql:
+    handler: src/handlers/graphql.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+
+  playground:
+    handler: src/handlers/playground.handler
+    events:
+      - http:
+          path: playground
+          method: get
+
+resources:
+  Resources:
+    MunicipalitiesTable: ${file(./resources/DynamoDB/Municipalities.yml):Table}

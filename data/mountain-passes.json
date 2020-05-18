@@ -1,0 +1,15 @@
+[{
+	"name": "St. Gotthard",
+	"elevation": 2107,
+	"length": 27,
+	"maxGradient": 0.08,
+	"from": "Göschenen",
+	"to": "Airolo"
+}, {
+	"name": "Furka",
+	"elevation": 2429,
+	"length": 28,
+	"maxGradient": 0.11,
+	"from": "Realp",
+	"to": "Oberwald"
+}]

@@ -1,0 +1,10 @@
+type Municipality {
+  name: String
+  postalCode: Int
+  population: Int
+  area: Float
+}
+
+extend type Query {
+  municipalities: [Municipality]
+}
