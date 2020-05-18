@@ -23,7 +23,6 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'eu-west-1'}
-  profile: private
   iamRoleStatements:
   - Effect: Allow
     Action:
